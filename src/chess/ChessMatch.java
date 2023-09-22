@@ -2,6 +2,8 @@ package chess;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import boardgame.Board;
@@ -27,6 +29,8 @@ public class ChessMatch {
 
 	private List<Piece> piecesOnTheBoard = new ArrayList<>();
 	private List<Piece> capturedPieces = new ArrayList<>();
+	
+	static ResourceBundle resourceBundle = ResourceBundle.getBundle("res.bundle", Locale.getDefault());
 
 	public ChessMatch() {
 		board = new Board(8, 8);
@@ -111,9 +115,12 @@ public class ChessMatch {
 		if (promoted == null) {
 			throw new IllegalStateException("There is no piece to be promoted");
 		}
-		if (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")){
-			return promoted;
+		
+		if (!type.equals(resourceBundle.getString("bishopPieceName")) && !type.equals(resourceBundle.getString("knightPieceName")) && !type.equals(resourceBundle.getString("rookPieceName")) && !type.equals(resourceBundle.getString("queenPieceName"))){
+			return promoted;			
 		}
+		//if (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")){
+		//}
 		
 		Position pos = promoted.getChessPosition().toPosition();
 		Piece p = board.removePiece(pos);
@@ -127,9 +134,9 @@ public class ChessMatch {
 		
 	}
 	private ChessPiece newPiece(String type, Color color) {
-		if (type.equals("B")) return new Bishop(board, color);
-		if (type.equals("N")) return new Knight(board, color);
-		if (type.equals("Q")) return new Queen(board, color);
+		if (type.equals(resourceBundle.getString("bishopPieceName"))) return new Bishop(board, color);
+		if (type.equals(resourceBundle.getString("knightPieceName"))) return new Knight(board, color);
+		if (type.equals(resourceBundle.getString("queenPieceName"))) return new Queen(board, color);
 		return new Rook(board, color);
 	}
 	
