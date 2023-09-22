@@ -69,7 +69,7 @@ public class UI {
 		}
 		else {
 			System.out.println(resourceBundle.getString("checkmate"));
-			System.out.println(resourceBundle.getString("winner") + chessMatch.getCurrentPlayer());
+			System.out.println(resourceBundle.getString("winner") + (chessMatch.getCurrentPlayer() == Color.WHITE ? resourceBundle.getString("white") : ANSI_YELLOW + resourceBundle.getString("black") + ANSI_RESET));
 		}
 	}
 	
