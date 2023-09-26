@@ -19,3 +19,15 @@
 - Sistema que detecta Cheque e Chequemate
 
 - Contagem do número total de jogadas
+
+<br>
+<br>
+
+# Peças
+
+- R: Rei
+- D: Dama (Rainha)
+- B: Bispo
+- C: Cavalo
+- T: Torre
+- P: Peão
