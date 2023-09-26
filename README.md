@@ -16,7 +16,7 @@
 
 - Implementação jogadas especiais, tais como: Roque, En Passant e Promoção
 
-- Sistema que detecta Cheque e Chequemate
+- Sistema que detecta Xeque e Xeque-mate
 
 - Contagem do número total de jogadas
 
