@@ -77,7 +77,7 @@ public class ChessMatch {
 		
 		if (testCheck(currentPlayer)) {
 			undoMove(source, target, capturedPiece);
-			throw new ChessException("You can't put yourself in check");
+			throw new ChessException(resourceBundle.getString("yourselfInCheck"));
 		}
 		
 		ChessPiece movedPiece = (ChessPiece)board.piece(target);
