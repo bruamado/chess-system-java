@@ -3,8 +3,6 @@ package application;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import chess.ChessException;
@@ -21,19 +19,20 @@ public class Program {
 		
 		int lang;
 		do {	
-		System.out.print("Enter language 0=English / 1=Portuguese-BR (0/1): ");
+		System.out.print("Enter language\n0=English / 1=Portuguese-BR (0/1): ");
 		lang = sc.nextInt();
 		} while (lang != 0 && lang != 1);
 		
 		if (lang == 1) {
-			Locale.setDefault(new Locale("pt", "BR"));
+			//Locale.setDefault(new Locale("pt", "BR"));
+			Translation.setLanguage(Languages.PT);
 		}
 		else {			
-			Locale.setDefault(new Locale("en", "US"));
+			//Locale.setDefault(new Locale("en", "US"));
+			Translation.setLanguage(Languages.EN);
 		}
-		ResourceBundle resourceBundle = ResourceBundle.getBundle("res.bundle", Locale.getDefault());
-		System.out.println(resourceBundle.getString("languageSetMsg"));
-		System.out.print(resourceBundle.getString("pressEnter"));
+		System.out.println(Translation.get("languageSetMsg"));
+		System.out.print(Translation.get("pressEnter"));
 		sc.nextLine();
 		sc.nextLine();
 		System.out.println();
@@ -44,7 +43,7 @@ public class Program {
 				UI.clearScreen();
 				UI.printMatch(chessMatch, captured);
 				System.out.println();
-				System.out.print(resourceBundle.getString("source"));
+				System.out.print(Translation.get("source"));
 				ChessPosition source = UI.readChessPosition(sc);
 				
 				boolean[][] possibleMoves = chessMatch.possibleMoves(source);
@@ -52,7 +51,7 @@ public class Program {
 				UI.printBoard(chessMatch.getPieces(), possibleMoves);
 				
 				System.out.println();
-				System.out.print(resourceBundle.getString("target"));
+				System.out.print(Translation.get("target"));
 				ChessPosition target = UI.readChessPosition(sc);
 				
 				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
@@ -61,10 +60,10 @@ public class Program {
 				}
 				
 				if (chessMatch.getPromoted() != null) {
-					System.out.print(resourceBundle.getString("enterPromotion"));
+					System.out.print(Translation.get("enterPromotion"));
 					String type = sc.nextLine().toUpperCase();
-					while (!type.equals(resourceBundle.getString("bishopPieceName")) && !type.equals(resourceBundle.getString("knightPieceName")) && !type.equals(resourceBundle.getString("rookPieceName")) && !type.equals(resourceBundle.getString("queenPieceName"))){
-						System.out.print(resourceBundle.getString("invalidPromotion"));
+					while (!type.equals(Translation.get("bishopPieceName")) && !type.equals(Translation.get("knightPieceName")) && !type.equals(Translation.get("rookPieceName")) && !type.equals(Translation.get("queenPieceName"))){
+						System.out.print(Translation.get("invalidPromotion"));
 						type = sc.nextLine().toUpperCase();
 					}
 					chessMatch.replacePromotedPiece(type);

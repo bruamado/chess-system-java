@@ -1,8 +1,6 @@
 package chess.pieces;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
+import application.Translation;
 import boardgame.Board;
 import boardgame.Position;
 import chess.ChessPiece;
@@ -78,8 +76,7 @@ public class Knight extends ChessPiece{
 	
 	@Override
 	public String toString() {
-		ResourceBundle resourceBundle = ResourceBundle.getBundle("res.bundle", Locale.getDefault());
-		return resourceBundle.getString("knightPieceName");
+		return Translation.get("knightPieceName");
 	}
 	
 }

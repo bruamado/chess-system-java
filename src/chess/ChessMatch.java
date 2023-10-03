@@ -2,10 +2,9 @@ package chess;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import application.Translation;
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
@@ -30,7 +29,6 @@ public class ChessMatch {
 	private List<Piece> piecesOnTheBoard = new ArrayList<>();
 	private List<Piece> capturedPieces = new ArrayList<>();
 	
-	static ResourceBundle resourceBundle = ResourceBundle.getBundle("res.bundle", Locale.getDefault());
 
 	public ChessMatch() {
 		board = new Board(8, 8);
@@ -77,7 +75,7 @@ public class ChessMatch {
 		
 		if (testCheck(currentPlayer)) {
 			undoMove(source, target, capturedPiece);
-			throw new ChessException(resourceBundle.getString("yourselfInCheck"));
+			throw new ChessException(Translation.get("yourselfInCheck"));
 		}
 		
 		ChessPiece movedPiece = (ChessPiece)board.piece(target);
@@ -116,7 +114,7 @@ public class ChessMatch {
 			throw new IllegalStateException("There is no piece to be promoted");
 		}
 		
-		if (!type.equals(resourceBundle.getString("bishopPieceName")) && !type.equals(resourceBundle.getString("knightPieceName")) && !type.equals(resourceBundle.getString("rookPieceName")) && !type.equals(resourceBundle.getString("queenPieceName"))){
+		if (!type.equals(Translation.get("bishopPieceName")) && !type.equals(Translation.get("knightPieceName")) && !type.equals(Translation.get("rookPieceName")) && !type.equals(Translation.get("queenPieceName"))){
 			return promoted;			
 		}
 		//if (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")){
@@ -134,9 +132,9 @@ public class ChessMatch {
 		
 	}
 	private ChessPiece newPiece(String type, Color color) {
-		if (type.equals(resourceBundle.getString("bishopPieceName"))) return new Bishop(board, color);
-		if (type.equals(resourceBundle.getString("knightPieceName"))) return new Knight(board, color);
-		if (type.equals(resourceBundle.getString("queenPieceName"))) return new Queen(board, color);
+		if (type.equals(Translation.get("bishopPieceName"))) return new Bishop(board, color);
+		if (type.equals(Translation.get("knightPieceName"))) return new Knight(board, color);
+		if (type.equals(Translation.get("queenPieceName"))) return new Queen(board, color);
 		return new Rook(board, color);
 	}
 	

@@ -3,8 +3,6 @@ package application;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -14,7 +12,6 @@ import chess.ChessPosition;
 import chess.Color;
 
 public class UI {
-	
 	// https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
 
 	public static final String ANSI_RESET = "\u001B[0m";
@@ -36,8 +33,6 @@ public class UI {
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 	
-	static ResourceBundle resourceBundle = ResourceBundle.getBundle("res.bundle", Locale.getDefault());
-	
 	// https://stackoverflow.com/questions/2979383/java-clear-the-console
 	public static void clearScreen() {
 		System.out.print("\033[H\033[2J");
@@ -52,7 +47,7 @@ public class UI {
 			return new ChessPosition(column, row);
 		}
 		catch (RuntimeException e) {
-			throw new InputMismatchException(resourceBundle.getString("errorReadingChessPosition"));
+			throw new InputMismatchException(Translation.get("errorReadingChessPosition"));
 		}
 	}
 	
@@ -60,16 +55,16 @@ public class UI {
 		printBoard(chessMatch.getPieces());
 		System.out.println();
 		printCapturedPieces(captured);
-		System.out.println(resourceBundle.getString("turn") + chessMatch.getTurn());
+		System.out.println(Translation.get("turn") + chessMatch.getTurn());
 		if (!chessMatch.getCheckMate()) {
-			System.out.println(resourceBundle.getString("waitingPlayer") + (chessMatch.getCurrentPlayer() == Color.WHITE ? resourceBundle.getString("white") : ANSI_YELLOW + resourceBundle.getString("black") + ANSI_RESET));
+			System.out.println(Translation.get("waitingPlayer") + (chessMatch.getCurrentPlayer() == Color.WHITE ? Translation.get("white") : ANSI_YELLOW + Translation.get("black") + ANSI_RESET));
 			if (chessMatch.getCheck()) {
-				System.out.println(resourceBundle.getString("check"));
+				System.out.println(Translation.get("check"));
 			}			
 		}
 		else {
-			System.out.println(resourceBundle.getString("checkmate"));
-			System.out.println(resourceBundle.getString("winner") + (chessMatch.getCurrentPlayer() == Color.WHITE ? resourceBundle.getString("white") : ANSI_YELLOW + resourceBundle.getString("black") + ANSI_RESET));
+			System.out.println(Translation.get("checkmate"));
+			System.out.println(Translation.get("winner") + (chessMatch.getCurrentPlayer() == Color.WHITE ? Translation.get("white") : ANSI_YELLOW + Translation.get("black") + ANSI_RESET));
 		}
 	}
 	
@@ -116,12 +111,12 @@ public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) 
 	private static void printCapturedPieces(List<ChessPiece> captured) {
 		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList());
 		List<ChessPiece> black = captured.stream().filter(x -> x.getColor() == Color.BLACK).collect(Collectors.toList());
-		System.out.println(resourceBundle.getString("capturedPieces"));
-		System.out.print(resourceBundle.getString("whiteCaptured"));
+		System.out.println(Translation.get("capturedPieces"));
+		System.out.print(Translation.get("whiteCaptured"));
 		System.out.print(ANSI_WHITE);
 		System.out.println(Arrays.toString(white.toArray()));
 		System.out.print(ANSI_RESET);
-		System.out.print(resourceBundle.getString("blackCaptured"));
+		System.out.print(Translation.get("blackCaptured"));
 		System.out.print(ANSI_YELLOW);
 		System.out.println(Arrays.toString(black.toArray()));
 		System.out.print(ANSI_RESET);
